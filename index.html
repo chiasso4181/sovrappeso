@@ -36,9 +36,9 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
         }
 
-        /* --- STILI INTESTAZIONE UFFICIALE --- */
+        /* --- STILI INTESTAZIONE UFFICIALE (NASCOSTA A SCHERMO) --- */
         .header-ufficiale {
-            display: flex;
+            display: none; /* Questa riga nasconde l'intestazione sullo schermo */
             justify-content: space-between;
             align-items: flex-start;
             margin-bottom: 25px;
@@ -60,8 +60,9 @@
             color: #444;
         }
 
-        /* --- STILI PIÈ DI PAGINA UFFICIALE --- */
+        /* --- STILI PIÈ DI PAGINA UFFICIALE (NASCOSTO A SCHERMO) --- */
         .footer-ufficiale {
+            display: none; /* Questa riga nasconde il piè di pagina sullo schermo */
             margin-top: 40px;
             padding-top: 15px;
             border-top: 1px solid #CCC;
@@ -141,7 +142,7 @@
             padding: 0;
         }
 
-       /* REGOLE DI STAMPA OTTIMIZZATE */
+       /* REGOLE DI STAMPA (Entrano in funzione solo durante la stampa/creazione PDF) */
        @media print {
             @page { size: A4 portrait; margin: 0.8cm; }
             body { background: #FFF; padding: 0; margin: 0; font-size: 9pt; }
@@ -151,8 +152,20 @@
             }
             .btn-print { display: none !important; }
             
-            /* Ottimizzazione spazi */
-            .header-ufficiale { margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid var(--primary); }
+            /* MOSTRIAMO INTESTAZIONE E PIÈ DI PAGINA IN STAMPA */
+            .header-ufficiale { 
+                display: flex !important; /* Riaccendiamo l'intestazione */
+                margin-bottom: 15px; 
+                padding-bottom: 10px; 
+                border-bottom: 1px solid var(--primary); 
+            }
+            .footer-ufficiale { 
+                display: block !important; /* Riaccendiamo il piè di pagina */
+                margin-top: 20px; 
+                padding-top: 10px; 
+            }
+
+            /* Ottimizzazione spazi per far stare tutto in una pagina */
             h1 { margin-bottom: 10px; padding-bottom: 5px; font-size: 1.3rem; margin-top: 5px; }
             h2 { margin-top: 10px; margin-bottom: 8px; padding-bottom: 3px; font-size: 1rem; }
             .form-row { margin-bottom: 5px; }
@@ -176,8 +189,6 @@
                 background-color: #FFF !important; 
                 padding: 10px 15px;
             }
-            
-            .footer-ufficiale { margin-top: 20px; padding-top: 10px; }
         }
         
         @media (max-width: 600px) {
@@ -192,7 +203,7 @@
 
 <div class="container">
     
-    <!-- INTESTAZIONE UFFICIALE -->
+    <!-- INTESTAZIONE UFFICIALE (Visibile solo in stampa) -->
     <div class="header-ufficiale">
         <div class="header-left">
             <!-- Logo SVG Scudo Svizzero -->
@@ -312,7 +323,7 @@
         </table>
     </div>
 
-    <!-- SEZIONE POLIZIA CANTONALE -->
+    <!-- SEZIONE POLIZIA CANTONALE (Visibile solo in stampa) -->
     <div class="police-box">
         <div>
             <h3>Riservato alla Polizia Cantonale</h3>
@@ -334,7 +345,7 @@
         </div>
     </div>
 
-    <!-- PIÈ DI PAGINA -->
+    <!-- PIÈ DI PAGINA (Visibile solo in stampa) -->
     <div class="footer-ufficiale">
         Dogana Sud<br>
         Settore Chiasso<br>
