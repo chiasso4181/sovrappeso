@@ -17,9 +17,10 @@
             --yellow-border: #D6B656;
             --bg-color: #F4F7F6;
             --border: #DEE2E6;
+            --text-grey: #666666;
         }
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: Arial, 'Segoe UI', Tahoma, sans-serif;
             background-color: var(--bg-color);
             color: #333;
             line-height: 1.5;
@@ -34,38 +35,70 @@
             border-radius: 8px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
         }
+
+        /* --- STILI INTESTAZIONE UFFICIALE --- */
+        .header-ufficiale {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--primary);
+            color: var(--text-grey);
+            font-size: 0.85rem;
+            line-height: 1.3;
+        }
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .header-right {
+            text-align: left;
+        }
+        .header-right strong {
+            color: #444;
+        }
+
+        /* --- STILI PIÈ DI PAGINA UFFICIALE --- */
+        .footer-ufficiale {
+            margin-top: 40px;
+            padding-top: 15px;
+            border-top: 1px solid #CCC;
+            color: var(--text-grey);
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
         h1 {
             color: var(--primary);
             text-align: center;
-            border-bottom: 2px solid var(--primary);
-            padding-bottom: 10px;
             margin-bottom: 30px;
             font-size: 1.6rem;
+            margin-top: 10px;
         }
         h2 {
             font-size: 1.15rem;
             color: var(--primary);
             border-bottom: 1px solid #EEE;
             padding-bottom: 8px;
-            margin-top: 30px;
+            margin-top: 25px;
             margin-bottom: 15px;
         }
         
-        .form-row { display: flex; align-items: center; margin-bottom: 12px; }
+        .form-row { display: flex; align-items: center; margin-bottom: 10px; }
         .form-row label { flex: 1; min-width: 320px; font-weight: 500; }
         .input-wrapper { flex: 1; max-width: 300px; position: relative; display: flex; align-items: center; }
         .input-wrapper input, .input-wrapper select {
-            width: 100%; padding: 10px; border: 1px solid var(--border);
+            width: 100%; padding: 8px 10px; border: 1px solid var(--border);
             border-radius: 4px; font-size: 1rem; font-family: inherit; box-sizing: border-box;
         }
 
-        /* Colore del testo d'esempio in grigio */
         ::placeholder { color: #A0A0A0; font-weight: normal; }
 
         .input-yellow { background-color: var(--yellow-bg) !important; font-weight: bold; color: #000; border: 1px solid var(--yellow-border) !important; }
         .input-yellow:focus { outline: none; box-shadow: 0 0 0 3px rgba(214, 182, 86, 0.3); }
         
-        /* Stile per i campi bianchi (come da screenshot) */
         .input-white { background-color: #FFF !important; color: #333; }
         .input-white:focus { outline: none; box-shadow: 0 0 0 3px rgba(31, 78, 121, 0.2); border-color: var(--primary); }
 
@@ -78,24 +111,23 @@
         .has-unit { padding-right: 35px !important; }
 
         .table-responsive { width: 100%; overflow-x: auto; }
-        table { width: 100%; border-collapse: collapse; margin-top: 10px; table-layout: auto; }
-        th, td { border: 1px solid var(--border); padding: 12px; vertical-align: middle; }
+        table { width: 100%; border-collapse: collapse; margin-top: 5px; table-layout: auto; }
+        th, td { border: 1px solid var(--border); padding: 10px 12px; vertical-align: middle; }
         th { background-color: #F1F3F5; color: var(--primary); text-align: left; }
 
         .btn-print {
-            display: block; width: 100%; max-width: 350px; margin: 40px auto 10px auto;
+            display: block; width: 100%; max-width: 350px; margin: 30px auto 10px auto;
             background-color: var(--primary); color: white; border: none; padding: 15px;
             font-size: 1.1rem; font-weight: bold; border-radius: 6px; cursor: pointer; text-align: center;
         }
         .btn-print:hover { background-color: #112d47; }
 
-        /* Sezione Polizia - NASCOSTA A SCHERMO */
         .police-box {
             display: none; 
-            margin-top: 40px; 
+            margin-top: 25px; 
             border: 2px solid var(--border); 
             border-radius: 8px; 
-            padding: 20px; 
+            padding: 15px 20px; 
             justify-content: space-between; 
             align-items: center; 
             page-break-inside: avoid; 
@@ -109,42 +141,47 @@
             padding: 0;
         }
 
-       /* REGOLE DI STAMPA OTTIMIZZATE PER PAGINA SINGOLA */
+       /* REGOLE DI STAMPA OTTIMIZZATE */
        @media print {
             @page { size: A4 portrait; margin: 0.8cm; }
-            body { background: #FFF; padding: 0; margin: 0; font-size: 9.5pt; }
+            body { background: #FFF; padding: 0; margin: 0; font-size: 9pt; }
             .container { 
                 box-shadow: none; border: none; padding: 0; max-width: 100%; width: 100%; 
-                page-break-inside: avoid; /* Previene interruzioni indesiderate */
+                page-break-inside: avoid; 
             }
             .btn-print { display: none !important; }
             
-            /* Compattazione degli spazi per far stare tutto in una pagina */
-            h1 { margin-bottom: 15px; padding-bottom: 5px; font-size: 1.4rem; }
-            h2 { margin-top: 15px; margin-bottom: 10px; padding-bottom: 4px; font-size: 1.05rem; }
-            .form-row { margin-bottom: 6px; }
-            .police-box { margin-top: 20px; padding: 15px; }
-            table { margin-top: 5px; }
-            th, td { padding: 6px 6px !important; }
+            /* Ottimizzazione spazi */
+            .header-ufficiale { margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid var(--primary); }
+            h1 { margin-bottom: 10px; padding-bottom: 5px; font-size: 1.3rem; margin-top: 5px; }
+            h2 { margin-top: 10px; margin-bottom: 8px; padding-bottom: 3px; font-size: 1rem; }
+            .form-row { margin-bottom: 5px; }
+            
+            table { margin-top: 3px; }
+            th, td { padding: 5px 6px !important; }
 
             .table-responsive { overflow: visible !important; }
             table { table-layout: fixed !important; width: 100% !important; word-wrap: break-word; }
-            th, td { border: 1px solid #000 !important; font-size: 9pt !important; }
+            th, td { border: 1px solid #000 !important; font-size: 8.5pt !important; }
             * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
             
-            .input-wrapper input, .input-wrapper select { border: 1px solid #CCC !important; background: transparent !important; padding: 5px; }
+            .input-wrapper input, .input-wrapper select { border: 1px solid #CCC !important; background: transparent !important; padding: 4px; }
             .input-yellow { background-color: #FFF2CC !important; border: 1px solid #D6B656 !important; }
             th { background-color: #E9ECEF !important; }
             
-            /* VISIBILE SOLO IN STAMPA */
             .police-box { 
                 display: flex !important; 
+                margin-top: 15px;
                 border: 2px solid #000 !important; 
                 background-color: #FFF !important; 
+                padding: 10px 15px;
             }
+            
+            .footer-ufficiale { margin-top: 20px; padding-top: 10px; }
         }
         
         @media (max-width: 600px) {
+            .header-ufficiale { flex-direction: column; gap: 15px; }
             .form-row { flex-direction: column; align-items: stretch; }
             .form-row label { margin-bottom: 5px; }
             .input-wrapper { max-width: 100%; }
@@ -154,6 +191,29 @@
 <body>
 
 <div class="container">
+    
+    <!-- INTESTAZIONE UFFICIALE -->
+    <div class="header-ufficiale">
+        <div class="header-left">
+            <!-- Logo SVG Scudo Svizzero -->
+            <svg width="45" height="55" viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10,10 v40 c0,30 40,60 40,60 c0,0 40,-30 40,-60 v-40 z" fill="#888888"/>
+                <path d="M42,30 v15 h-15 v10 h15 v15 h10 v-15 h15 v-10 h-15 v-15 z" fill="#FFFFFF"/>
+            </svg>
+            <div>
+                Schweizerische Eidgenossenschaft<br>
+                Confédération suisse<br>
+                Confederazione Svizzera<br>
+                Confederaziun svizra
+            </div>
+        </div>
+        <div class="header-right">
+            Dipartimento federale delle finanze DFF<br>
+            <strong>Ufficio federale della dogana e della sicurezza dei confini UDSC</strong><br>
+            Operazioni
+        </div>
+    </div>
+
     <h1>Calcolo Sovraccarichi Veicoli</h1>
 
     <!-- SEZIONE 1 -->
@@ -187,7 +247,6 @@
         </div>
     </div>
     
-    <!-- CAMPI INVERTITI E STILIZZATI COME DA SCREENSHOT -->
     <div class="form-row" style="margin-top: 20px;">
         <label>Peso Constatato (da bilancia)</label>
         <div class="input-wrapper">
@@ -257,10 +316,10 @@
     <div class="police-box">
         <div>
             <h3>Riservato alla Polizia Cantonale</h3>
-            <div style="margin-top: 15px; font-weight: bold; font-size: 1.05rem;">
+            <div style="margin-top: 10px; font-weight: bold; font-size: 1.05rem;">
                 Autorizzazione al proseguimento del viaggio:
             </div>
-            <div style="margin-top: 15px; display: flex; gap: 30px;">
+            <div style="margin-top: 10px; display: flex; gap: 30px;">
                 <label style="display: flex; align-items: center; gap: 8px; font-size: 1.1rem; cursor: pointer;">
                     <input type="checkbox" style="width: 22px; height: 22px;"> SÌ
                 </label>
@@ -269,10 +328,19 @@
                 </label>
             </div>
         </div>
-        <div style="width: 140px; height: 140px; border: 2px solid #555; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: #444; background-color: #FFF;">
-            <span style="font-weight: bold; text-transform: uppercase; font-size: 0.95rem; margin-bottom: 10px;">Procedura<br>Disbrigata</span>
-            <span style="font-size: 0.85rem; color: #888;">(Timbro / Firma)</span>
+        <div style="width: 120px; height: 120px; border: 2px solid #555; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: #444; background-color: #FFF;">
+            <span style="font-weight: bold; text-transform: uppercase; font-size: 0.85rem; margin-bottom: 5px;">Procedura<br>Disbrigata</span>
+            <span style="font-size: 0.75rem; color: #888;">(Timbro / Firma)</span>
         </div>
+    </div>
+
+    <!-- PIÈ DI PAGINA -->
+    <div class="footer-ufficiale">
+        Dogana Sud<br>
+        Settore Chiasso<br>
+        Via Maestri Comacini 12, 6830 Chiasso<br>
+        Tel. +41584834111<br>
+        www.bazg.admin.ch
     </div>
 
     <button class="btn-print" onclick="stampaReportiOS()">🖨 Stampa Report / Salva PDF</button>
@@ -318,12 +386,10 @@
         setTimeout(function() { window.print(); }, 150);
     }
 
-    // Motore Principale
     function calcola() {
         let pesoAuth = leggiNumeroSafe("peso_autorizzato", 0);
         let pesoConst = leggiNumeroSafe("peso_constatato", 0);
 
-        // DEDUZIONE AUTOMATICA DELLA CATEGORIA DAL PESO AUTORIZZATO
         let isPesante = pesoAuth > 3500;
 
         let outTol = document.getElementById("out_tolleranza");
@@ -333,7 +399,6 @@
         let outOMD = document.getElementById("out_omd");
         let outCauz = document.getElementById("out_cauzione");
 
-        // Se mancano i dati, azzera la grafica e nascondi avvisi
         if (pesoAuth === 0 || pesoConst === 0) {
             outTol.innerText = "0.0 Kg";
             outDen.innerText = "0.0 Kg";
@@ -346,12 +411,10 @@
             return;
         }
 
-        // 1. Calcoli Matematici (Tolleranza 3%)
         let tolleranza = pesoConst * 0.03;
         let denunciabile = pesoConst - tolleranza;
         let sovraccarico = denunciabile - pesoAuth;
         
-        // Se non c'è sovraccarico
         if (sovraccarico <= 0) {
             outTol.innerText = formatKG(tolleranza);
             outDen.innerText = formatKG(denunciabile);
@@ -364,7 +427,6 @@
             return;
         }
 
-        // Se c'è sovraccarico
         let percentuale = (sovraccarico / pesoAuth) * 100;
         
         outTol.innerText = formatKG(tolleranza);
@@ -374,23 +436,18 @@
         outSov.style.color = "#D35400";
         outPerc.style.color = "#D35400";
 
-        // 2. Logica di calcolo sanzioni
         let cauzione = 0;
         let omd = "0.00 CHF";
 
-        // Scaglione 1: Fino a 100 Kg
         if (sovraccarico <= 100) {
             cauzione = 140;
             omd = formatValuta(100) + " (Cod. 300.1.a)";
         } 
-        // Scaglione 2: Oltre 100 Kg ma sino al 5%
         else if (percentuale <= 5) {
             if (!isPesante) {
-                // Leggeri
                 cauzione = 270;
                 omd = formatValuta(200) + " (Cod. 300.1.b)";
             } else {
-                // Pesanti (+3500kg): l'OMD è valida solo per un Max di 1000 kg di sovraccarico
                 cauzione = 350;
                 if (sovraccarico <= 1000) {
                     omd = formatValuta(250) + " (Cod. 300.1.c)";
@@ -399,7 +456,6 @@
                 }
             }
         } 
-        // Scaglioni 3+: Oltre il 5% (L'OMD non è più possibile per nessuno)
         else {
             omd = "Non applicabile (> 5%)";
             
@@ -422,7 +478,6 @@
             else cauzione = 3160;
         }
 
-        // 3. Stampa finale a video
         outCauz.innerText = formatValuta(cauzione);
         
         if (omd.includes("Non applicabile")) {
@@ -434,7 +489,6 @@
         }
     }
 
-    // Inizializza al caricamento per gestire eventuali ricaricamenti di pagina
     window.onload = function() {
         calcola(); 
     };
