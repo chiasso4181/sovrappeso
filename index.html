@@ -1,4 +1,4 @@
-html_content = """<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="it">
 <head>
     <meta charset="UTF-8">
@@ -55,16 +55,20 @@ html_content = """<!DOCTYPE html>
         .form-row label { flex: 1; min-width: 320px; font-weight: 500; }
         .input-wrapper { flex: 1; max-width: 300px; position: relative; display: flex; align-items: center; }
         .input-wrapper input, .input-wrapper select {
-            width: 100%; padding: 10px; border: 1px solid var(--yellow-border);
+            width: 100%; padding: 10px; border: 1px solid var(--border);
             border-radius: 4px; font-size: 1rem; font-family: inherit; box-sizing: border-box;
         }
 
         /* Colore del testo d'esempio in grigio */
         ::placeholder { color: #A0A0A0; font-weight: normal; }
 
-        .input-yellow { background-color: var(--yellow-bg) !important; font-weight: bold; color: #000; }
+        .input-yellow { background-color: var(--yellow-bg) !important; font-weight: bold; color: #000; border: 1px solid var(--yellow-border) !important; }
         .input-yellow:focus { outline: none; box-shadow: 0 0 0 3px rgba(214, 182, 86, 0.3); }
         
+        /* Stile per i campi bianchi (come da screenshot) */
+        .input-white { background-color: #FFF !important; color: #333; }
+        .input-white:focus { outline: none; box-shadow: 0 0 0 3px rgba(31, 78, 121, 0.2); border-color: var(--primary); }
+
         .text-right { text-align: right; }
         .fw-bold { font-weight: bold; }
         .text-red { color: #D35400; }
@@ -87,7 +91,7 @@ html_content = """<!DOCTYPE html>
 
         /* Sezione Polizia - NASCOSTA A SCHERMO */
         .police-box {
-            display: none; /* NON VISIBILE NELLA GUI */
+            display: none; 
             margin-top: 40px; 
             border: 2px solid var(--border); 
             border-radius: 8px; 
@@ -105,17 +109,30 @@ html_content = """<!DOCTYPE html>
             padding: 0;
         }
 
-       /* REGOLE DI STAMPA */
+       /* REGOLE DI STAMPA OTTIMIZZATE PER PAGINA SINGOLA */
        @media print {
-            @page { size: A4 portrait; margin: 0; }
-            body { background: #FFF; padding: 1.5cm; margin: 0; font-size: 10pt; }
-            .container { box-shadow: none; border: none; padding: 0; max-width: 100%; width: 100%; }
+            @page { size: A4 portrait; margin: 0.8cm; }
+            body { background: #FFF; padding: 0; margin: 0; font-size: 9.5pt; }
+            .container { 
+                box-shadow: none; border: none; padding: 0; max-width: 100%; width: 100%; 
+                page-break-inside: avoid; /* Previene interruzioni indesiderate */
+            }
             .btn-print { display: none !important; }
+            
+            /* Compattazione degli spazi per far stare tutto in una pagina */
+            h1 { margin-bottom: 15px; padding-bottom: 5px; font-size: 1.4rem; }
+            h2 { margin-top: 15px; margin-bottom: 10px; padding-bottom: 4px; font-size: 1.05rem; }
+            .form-row { margin-bottom: 6px; }
+            .police-box { margin-top: 20px; padding: 15px; }
+            table { margin-top: 5px; }
+            th, td { padding: 6px 6px !important; }
+
             .table-responsive { overflow: visible !important; }
             table { table-layout: fixed !important; width: 100% !important; word-wrap: break-word; }
-            th, td { border: 1px solid #000 !important; padding: 8px 6px !important; font-size: 9.5pt !important; }
+            th, td { border: 1px solid #000 !important; font-size: 9pt !important; }
             * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-            .input-wrapper input, .input-wrapper select { border: 1px solid #CCC !important; background: transparent !important; padding: 6px; }
+            
+            .input-wrapper input, .input-wrapper select { border: 1px solid #CCC !important; background: transparent !important; padding: 5px; }
             .input-yellow { background-color: #FFF2CC !important; border: 1px solid #D6B656 !important; }
             th { background-color: #E9ECEF !important; }
             
@@ -169,17 +186,19 @@ html_content = """<!DOCTYPE html>
             </select>
         </div>
     </div>
+    
+    <!-- CAMPI INVERTITI E STILIZZATI COME DA SCREENSHOT -->
     <div class="form-row" style="margin-top: 20px;">
         <label>Peso Constatato (da bilancia)</label>
         <div class="input-wrapper">
-            <input type="text" inputmode="decimal" id="peso_constatato" class="input-yellow text-right has-unit" placeholder="es. 3820" autocomplete="off" autocorrect="off" spellcheck="false" oninput="pulisciInput(this); calcola()">
+            <input type="text" inputmode="decimal" id="peso_constatato" class="input-white text-right has-unit" placeholder="es. 3820" autocomplete="off" autocorrect="off" spellcheck="false" oninput="pulisciInput(this); calcola()">
             <span class="unit-sign">Kg</span>
         </div>
     </div>
     <div class="form-row">
         <label>Peso Autorizzato (da libretto)</label>
         <div class="input-wrapper">
-            <input type="text" inputmode="decimal" id="peso_autorizzato" class="input-yellow text-right has-unit" placeholder="es. 3500" autocomplete="off" autocorrect="off" spellcheck="false" oninput="pulisciInput(this); calcola()">
+            <input type="text" inputmode="decimal" id="peso_autorizzato" class="input-white text-right has-unit" placeholder="es. 3500" autocomplete="off" autocorrect="off" spellcheck="false" oninput="pulisciInput(this); calcola()">
             <span class="unit-sign">Kg</span>
         </div>
     </div>
@@ -421,4 +440,4 @@ html_content = """<!DOCTYPE html>
     };
 </script>
 </body>
-</html>"""
+</html>
