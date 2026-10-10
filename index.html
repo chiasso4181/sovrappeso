@@ -147,7 +147,7 @@
         }
 
         /* -----------------------------------------------------------
-           REGOLE MOBILE (Non toccate, funzionano perfettamente)
+           REGOLE MOBILE (Invariate)
            ----------------------------------------------------------- */
         .modalita-pdf #contenuto-report {
             width: 750px !important;       
@@ -171,55 +171,53 @@
         }
 
         /* -----------------------------------------------------------
-           NUOVE REGOLE DI STAMPA PER PC (OTTIMIZZATE PER FOGLIO A4)
-           Queste regole "allargano" e spaziano meglio il documento su Windows.
+           REGOLE DI STAMPA PER PC (MODIFICATE)
            ----------------------------------------------------------- */
         @media print {
-            @page { size: A4 portrait; margin: 1.2cm; } /* Margine del foglio leggermente più ampio per eleganza */
+            @page { 
+                size: A4 portrait; 
+                margin: 0 !important; /* Rimuove URL e Data di default del browser */
+            }
             
-            /* Aumentiamo il font di base da 9pt a 11pt per occupare più spazio in verticale */
-            body { background: #FFF; padding: 0; margin: 0; font-size: 11pt; } 
+            body { 
+                background: #FFF; 
+                padding: 0; 
+                margin: 1.2cm !important; /* Ricrea i margini internamente per non toccare i bordi */
+                font-size: 10pt; /* Dimensione bilanciata per restare in 1 pagina */
+            }
             
             .container { box-shadow: none; border: none; padding: 0; max-width: 100%; width: 100%; page-break-inside: avoid; }
             .btn-print { display: none !important; }
             
-            .header-ufficiale { display: flex !important; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid var(--primary); }
+            .header-ufficiale { display: flex !important; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid var(--primary); }
+            .footer-ufficiale { display: block !important; margin-top: 25px; padding-top: 10px; font-size: 9pt; }
             
-            /* Diamo molto più spazio sopra il footer per spingerlo in basso */
-            .footer-ufficiale { display: block !important; margin-top: 50px; padding-top: 15px; font-size: 10pt; }
+            h1 { margin-bottom: 15px; padding-bottom: 5px; font-size: 1.4rem; margin-top: 5px; }
+            h2 { margin-top: 20px; margin-bottom: 10px; padding-bottom: 3px; font-size: 1.1rem; }
             
-            /* Titoli più grandi e più distanziati */
-            h1 { margin-bottom: 25px; padding-bottom: 10px; font-size: 1.6rem; margin-top: 10px; }
-            h2 { margin-top: 30px; margin-bottom: 15px; padding-bottom: 5px; font-size: 1.2rem; }
+            .form-row { margin-bottom: 8px; } 
             
-            /* Aumentiamo lo spazio tra le righe del modulo */
-            .form-row { margin-bottom: 12px; } 
-            
-            table { margin-top: 10px; }
-            
-            /* Celle delle tabelle più "alte" e con testo più grande */
-            th, td { padding: 8px 10px !important; font-size: 10.5pt !important; } 
+            table { margin-top: 5px; }
+            th, td { padding: 6px 8px !important; font-size: 9.5pt !important; } 
             
             .table-responsive { overflow: visible !important; }
             table { table-layout: fixed !important; width: 100% !important; word-wrap: break-word; }
             th, td { border: 1px solid #000 !important; }
             * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
             
-            .input-wrapper input, .input-wrapper select { border: 1px solid #CCC !important; background: transparent !important; padding: 6px; font-size: 11pt; }
+            .input-wrapper input, .input-wrapper select { border: 1px solid #CCC !important; background: transparent !important; padding: 4px; font-size: 10pt; }
             .input-yellow { background-color: #FFF2CC !important; border: 1px solid #D6B656 !important; }
             th { background-color: #E9ECEF !important; }
             
-            /* Spingiamo verso il basso il box della polizia cantonale e lo rendiamo un po' più grande */
             .police-box { 
                 display: flex !important; 
-                margin-top: 40px; 
+                margin-top: 25px; 
                 border: 2px solid #000 !important; 
                 background-color: #FFF !important; 
-                padding: 15px 20px; 
+                padding: 12px 15px; 
             }
         }
         
-        /* Il layout mobile si disattiva se siamo in modalità PDF */
         @media (max-width: 600px) {
             body:not(.modalita-pdf) .header-ufficiale { flex-direction: column; gap: 15px; }
             body:not(.modalita-pdf) .form-row { flex-direction: column; align-items: stretch; }
