@@ -365,7 +365,7 @@
     }
 
     function generaPDFDiretto() {
-        // AZZERAMENTO DELLO SCROLL: Riporta la vista in alto per eliminare il blocco bianco
+        // Riporta in alto per evitare spazi bianchi
         window.scrollTo(0, 0);
 
         const element = document.getElementById('contenuto-report');
@@ -385,10 +385,12 @@
         const paddingOriginale = element.style.padding;
         const margineOriginale = element.style.margin;
 
-        // Impostiamo larghezza ridotta e rimuoviamo i margini per rimpicciolire il contenuto in verticale
-        element.style.width = '750px';
-        element.style.maxWidth = '750px';
-        element.style.padding = '0px';
+        // --- IL TRUCCO PER NON TAGLIARE L'ULTIMO PEZZO ---
+        // 1. Larghezza 850px (più è largo, più si riduce l'altezza in proporzione)
+        // 2. Padding a 10px (togliamo 20px di spazio bianco sopra e sotto)
+        element.style.width = '850px';
+        element.style.maxWidth = '850px';
+        element.style.padding = '10px'; 
         element.style.margin = '0px';
 
         const inputs = document.querySelectorAll('input, select');
@@ -396,7 +398,6 @@
             input.setAttribute('value', input.value);
         });
 
-        // Opzioni ottimizzate per evitare scroll errati
         const opt = {
             margin:       5, 
             filename:     'Report_Sovraccarico.pdf',
@@ -404,9 +405,9 @@
             html2canvas:  { 
                 scale: 2, 
                 useCORS: true, 
-                windowWidth: 750,
-                scrollY: 0, // Diciamo alla libreria di ignorare gli offset verticali
-                scrollX: 0  // Diciamo alla libreria di ignorare gli offset orizzontali
+                windowWidth: 850, // Allineato con la larghezza sopra impostata
+                scrollY: 0, 
+                scrollX: 0  
             }, 
             jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
         };
