@@ -140,16 +140,44 @@
     <h1>Calcolo Sovraccarichi Veicoli</h1>
 
     <!-- SEZIONE 1 -->
-    <h2>1. DATI DEL VEICOLO</h2>
+    <h2>1. DATI GENERALI E VEICOLO</h2>
     <div class="form-row">
-        <label>Peso Autorizzato</label>
+        <label>Targa motrice (facoltativo)</label>
+        <div class="input-wrapper">
+            <input type="text" id="targa_motrice" class="input-yellow" placeholder="es. TI 12345" autocomplete="off" autocorrect="off" spellcheck="false">
+        </div>
+    </div>
+    <div class="form-row">
+        <label>Targa rimorchio (facoltativo)</label>
+        <div class="input-wrapper">
+            <input type="text" id="targa_rimorchio" class="input-yellow" placeholder="es. TI 54321" autocomplete="off" autocorrect="off" spellcheck="false">
+        </div>
+    </div>
+    <div class="form-row">
+        <label>Luogo di scarico (facoltativo)</label>
+        <div class="input-wrapper">
+            <input type="text" id="luogo_scarico" class="input-yellow" placeholder="es. Chiasso" autocomplete="off" autocorrect="off" spellcheck="false">
+        </div>
+    </div>
+    <div class="form-row">
+        <label>Direzione (facoltativo)</label>
+        <div class="input-wrapper">
+            <select id="direzione" class="input-yellow">
+                <option value="" selected>-- Seleziona --</option>
+                <option value="Sud - Nord">Sud - Nord</option>
+                <option value="Nord - Sud">Nord - Sud</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-row" style="margin-top: 20px;">
+        <label>Peso Autorizzato (da libretto)</label>
         <div class="input-wrapper">
             <input type="text" inputmode="decimal" id="peso_autorizzato" class="input-yellow text-right has-unit" placeholder="es. 3500" autocomplete="off" autocorrect="off" spellcheck="false" oninput="pulisciInput(this); calcola()">
             <span class="unit-sign">Kg</span>
         </div>
     </div>
     <div class="form-row">
-        <label>Peso Constatato (Bilancia)</label>
+        <label>Peso Constatato (da bilancia)</label>
         <div class="input-wrapper">
             <input type="text" inputmode="decimal" id="peso_constatato" class="input-yellow text-right has-unit" placeholder="es. 3820" autocomplete="off" autocorrect="off" spellcheck="false" oninput="pulisciInput(this); calcola()">
             <span class="unit-sign">Kg</span>
@@ -211,7 +239,7 @@
         <div>
             <h3>Riservato alla Polizia Cantonale</h3>
             <div style="margin-top: 15px; font-weight: bold; font-size: 1.05rem;">
-                Continuazione del viaggio autorizzata:
+                Autorizzazione al proseguimento del viaggio:
             </div>
             <div style="margin-top: 15px; display: flex; gap: 30px;">
                 <label style="display: flex; align-items: center; gap: 8px; font-size: 1.1rem; cursor: pointer;">
