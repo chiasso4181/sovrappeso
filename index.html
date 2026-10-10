@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+html_content = """<!DOCTYPE html>
 <html lang="it">
 <head>
     <meta charset="UTF-8">
@@ -170,16 +170,16 @@
         </div>
     </div>
     <div class="form-row" style="margin-top: 20px;">
-        <label>Peso Autorizzato (da libretto)</label>
+        <label>Peso Constatato (da bilancia)</label>
         <div class="input-wrapper">
-            <input type="text" inputmode="decimal" id="peso_autorizzato" class="input-yellow text-right has-unit" placeholder="es. 3500" autocomplete="off" autocorrect="off" spellcheck="false" oninput="pulisciInput(this); calcola()">
+            <input type="text" inputmode="decimal" id="peso_constatato" class="input-yellow text-right has-unit" placeholder="es. 3820" autocomplete="off" autocorrect="off" spellcheck="false" oninput="pulisciInput(this); calcola()">
             <span class="unit-sign">Kg</span>
         </div>
     </div>
     <div class="form-row">
-        <label>Peso Constatato (da bilancia)</label>
+        <label>Peso Autorizzato (da libretto)</label>
         <div class="input-wrapper">
-            <input type="text" inputmode="decimal" id="peso_constatato" class="input-yellow text-right has-unit" placeholder="es. 3820" autocomplete="off" autocorrect="off" spellcheck="false" oninput="pulisciInput(this); calcola()">
+            <input type="text" inputmode="decimal" id="peso_autorizzato" class="input-yellow text-right has-unit" placeholder="es. 3500" autocomplete="off" autocorrect="off" spellcheck="false" oninput="pulisciInput(this); calcola()">
             <span class="unit-sign">Kg</span>
         </div>
     </div>
@@ -362,19 +362,19 @@
         // Scaglione 1: Fino a 100 Kg
         if (sovraccarico <= 100) {
             cauzione = 140;
-            omd = formatValuta(100);
+            omd = formatValuta(100) + " (Cod. 300.1.a)";
         } 
         // Scaglione 2: Oltre 100 Kg ma sino al 5%
         else if (percentuale <= 5) {
             if (!isPesante) {
                 // Leggeri
                 cauzione = 270;
-                omd = formatValuta(200);
+                omd = formatValuta(200) + " (Cod. 300.1.b)";
             } else {
                 // Pesanti (+3500kg): l'OMD è valida solo per un Max di 1000 kg di sovraccarico
                 cauzione = 350;
                 if (sovraccarico <= 1000) {
-                    omd = formatValuta(250);
+                    omd = formatValuta(250) + " (Cod. 300.1.c)";
                 } else {
                     omd = "Non applicabile (> 1000 Kg)";
                 }
@@ -421,4 +421,7 @@
     };
 </script>
 </body>
-</html>
+</html>"""
+
+with open("Calcolo_Sovraccarichi_V8.html", "w", encoding="utf-8") as f:
+    f.write(html_content)
