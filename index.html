@@ -10,10 +10,6 @@
     <meta http-equiv="Expires" content="0">
 
     <title>Calcolo Sovraccarichi Veicoli</title>
-    
-    <!-- LIBRERIA PER GENERARE IL PDF SU MOBILE -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-
     <style>
         :root {
             --primary: #1F4E79; 
@@ -42,7 +38,7 @@
 
         /* --- STILI INTESTAZIONE UFFICIALE (NASCOSTA A SCHERMO) --- */
         .header-ufficiale {
-            display: none; 
+            display: none; /* Questa riga nasconde l'intestazione sullo schermo */
             justify-content: space-between;
             align-items: flex-start;
             margin-bottom: 25px;
@@ -66,7 +62,7 @@
 
         /* --- STILI PIÈ DI PAGINA UFFICIALE (NASCOSTO A SCHERMO) --- */
         .footer-ufficiale {
-            display: none; 
+            display: none; /* Questa riga nasconde il piè di pagina sullo schermo */
             margin-top: 40px;
             padding-top: 15px;
             border-top: 1px solid #CCC;
@@ -146,7 +142,7 @@
             padding: 0;
         }
 
-       /* REGOLE DI STAMPA (Per PC Windows/Mac) */
+       /* REGOLE DI STAMPA (Entrano in funzione solo durante la stampa/creazione PDF) */
        @media print {
             @page { size: A4 portrait; margin: 0.8cm; }
             body { background: #FFF; padding: 0; margin: 0; font-size: 9pt; }
@@ -156,13 +152,20 @@
             }
             .btn-print { display: none !important; }
             
+            /* MOSTRIAMO INTESTAZIONE E PIÈ DI PAGINA IN STAMPA */
             .header-ufficiale { 
-                display: flex !important; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid var(--primary); 
+                display: flex !important; /* Riaccendiamo l'intestazione */
+                margin-bottom: 15px; 
+                padding-bottom: 10px; 
+                border-bottom: 1px solid var(--primary); 
             }
             .footer-ufficiale { 
-                display: block !important; margin-top: 20px; padding-top: 10px; 
+                display: block !important; /* Riaccendiamo il piè di pagina */
+                margin-top: 20px; 
+                padding-top: 10px; 
             }
 
+            /* Ottimizzazione spazi per far stare tutto in una pagina */
             h1 { margin-bottom: 10px; padding-bottom: 5px; font-size: 1.3rem; margin-top: 5px; }
             h2 { margin-top: 10px; margin-bottom: 8px; padding-bottom: 3px; font-size: 1rem; }
             .form-row { margin-bottom: 5px; }
@@ -180,7 +183,11 @@
             th { background-color: #E9ECEF !important; }
             
             .police-box { 
-                display: flex !important; margin-top: 15px; border: 2px solid #000 !important; background-color: #FFF !important; padding: 10px 15px;
+                display: flex !important; 
+                margin-top: 15px;
+                border: 2px solid #000 !important; 
+                background-color: #FFF !important; 
+                padding: 10px 15px;
             }
         }
         
@@ -194,11 +201,12 @@
 </head>
 <body>
 
-<div class="container" id="contenuto-report">
+<div class="container">
     
-    <!-- INTESTAZIONE UFFICIALE -->
-    <div class="header-ufficiale" id="header-stampa">
+    <!-- INTESTAZIONE UFFICIALE (Visibile solo in stampa) -->
+    <div class="header-ufficiale">
         <div class="header-left">
+            <!-- Logo SVG Scudo Svizzero -->
             <svg width="45" height="55" viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
                 <path d="M10,10 v40 c0,30 40,60 40,60 c0,0 40,-30 40,-60 v-40 z" fill="#888888"/>
                 <path d="M42,30 v15 h-15 v10 h15 v15 h10 v-15 h15 v-10 h-15 v-15 z" fill="#FFFFFF"/>
@@ -315,8 +323,8 @@
         </table>
     </div>
 
-    <!-- SEZIONE POLIZIA CANTONALE -->
-    <div class="police-box" id="police-stampa">
+    <!-- SEZIONE POLIZIA CANTONALE (Visibile solo in stampa) -->
+    <div class="police-box">
         <div>
             <h3>Riservato alla Polizia Cantonale</h3>
             <div style="margin-top: 10px; font-weight: bold; font-size: 1.05rem;">
@@ -337,8 +345,8 @@
         </div>
     </div>
 
-    <!-- PIÈ DI PAGINA -->
-    <div class="footer-ufficiale" id="footer-stampa">
+    <!-- PIÈ DI PAGINA (Visibile solo in stampa) -->
+    <div class="footer-ufficiale">
         Dogana Sud<br>
         Settore Chiasso<br>
         Via Maestri Comacini 12, 6830 Chiasso<br>
@@ -346,88 +354,12 @@
         www.bazg.admin.ch
     </div>
 
-    <!-- Pulsante per stampare o generare PDF -->
-    <button class="btn-print" id="btn-stampa" onclick="gestisciStampaOPDF()">🖨 Stampa Report / Salva PDF</button>
+    <button class="btn-print" onclick="stampaReportiOS()">🖨 Stampa Report / Salva PDF</button>
 
 </div>
 
 <script>
-    // --- GESTIONE STAMPA E PDF MOBILE ---
-
-    function gestisciStampaOPDF() {
-        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-
-        if (isMobile) {
-            generaPDFDiretto();
-        } else {
-            window.print();
-        }
-    }
-
-    function generaPDFDiretto() {
-        // Riporta in alto per evitare spazi bianchi
-        window.scrollTo(0, 0);
-
-        const element = document.getElementById('contenuto-report');
-        const btnStampa = document.getElementById('btn-stampa');
-        const header = document.getElementById('header-stampa');
-        const footer = document.getElementById('footer-stampa');
-        const police = document.getElementById('police-stampa');
-
-        btnStampa.style.display = 'none';
-        header.style.display = 'flex';
-        footer.style.display = 'block';
-        police.style.display = 'flex';
-
-        // Salviamo gli stili originali per poterli ripristinare dopo
-        const larghezzaOriginale = element.style.width;
-        const maxLarghezzaOriginale = element.style.maxWidth;
-        const paddingOriginale = element.style.padding;
-        const margineOriginale = element.style.margin;
-
-        // --- IL TRUCCO PER NON TAGLIARE L'ULTIMO PEZZO ---
-        // 1. Larghezza 850px (più è largo, più si riduce l'altezza in proporzione)
-        // 2. Padding a 10px (togliamo 20px di spazio bianco sopra e sotto)
-        element.style.width = '850px';
-        element.style.maxWidth = '850px';
-        element.style.padding = '10px'; 
-        element.style.margin = '0px';
-
-        const inputs = document.querySelectorAll('input, select');
-        inputs.forEach(input => {
-            input.setAttribute('value', input.value);
-        });
-
-        const opt = {
-            margin:       5, 
-            filename:     'Report_Sovraccarico.pdf',
-            image:        { type: 'jpeg', quality: 0.98 },
-            html2canvas:  { 
-                scale: 2, 
-                useCORS: true, 
-                windowWidth: 850, // Allineato con la larghezza sopra impostata
-                scrollY: 0, 
-                scrollX: 0  
-            }, 
-            jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
-        };
-
-        html2pdf().set(opt).from(element).save().then(() => {
-            // Ripristiniamo la schermata in modalità smartphone
-            btnStampa.style.display = 'block';
-            header.style.display = 'none';
-            footer.style.display = 'none';
-            police.style.display = 'none';
-            
-            element.style.width = larghezzaOriginale;
-            element.style.maxWidth = maxLarghezzaOriginale;
-            element.style.padding = paddingOriginale;
-            element.style.margin = margineOriginale;
-        });
-    }
-
-    // --- LOGICA DEL CALCOLATORE ---
-
+    // Utility per la pulizia dei dati inseriti su iOS
     function pulisciInput(elemento) {
         let valore = elemento.value;
         valore = valore.replace(',', '.');
@@ -459,6 +391,10 @@
     function formatKG(val) {
         if (isNaN(val)) return "0.0 Kg";
         return Number(val).toFixed(1) + " Kg";
+    }
+
+    function stampaReportiOS() {
+        setTimeout(function() { window.print(); }, 150);
     }
 
     function calcola() {
